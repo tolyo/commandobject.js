@@ -1,6 +1,6 @@
 import { nullable } from '../src/index';
 
-describe('nullable functions', () => {
+describe('nullable constaint', () => {
   describe('unsuccessful validation with nullable set to false', () => {
     it('should be invalid', () => {
       expect(nullable(false)()).toBe(false);
