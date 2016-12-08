@@ -1,0 +1,28 @@
+{
+  "name": "commandobject.js",
+  "description": "Command objects in js",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src/index.js -o dist/index.js",
+    "start": "npm run test",
+    "test": "babel-node spec/run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DavidWells/js-library-starter-kit.git"
+  },
+  "author": "Anatoly Ostrovsky <anatolyostrovsky@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0"
+  },
+  "devDependencies": {
+    "babel": "5.8.21",
+    "jasmine": "^2.5.2",
+    "jasmine-es6": "latest"
+  },
+  "release": {
+    "debug": false
+  }
+}
