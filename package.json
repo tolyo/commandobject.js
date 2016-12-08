@@ -5,7 +5,7 @@
   "scripts": {
     "build": "babel src/index.js -o dist/index.js",
     "start": "npm run test",
-    "test": "babel-node spec/run.js"
+    "test": "eslint ./src/index.js && babel-node spec/run.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,8 @@
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "jasmine": "latest",
-    "jasmine-es6": "latest"
+    "jasmine-es6": "latest",
+    "eslint": "^2.0.0"
   },
   "release": {
     "debug": false
