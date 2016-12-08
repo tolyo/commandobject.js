@@ -1,25 +1,13 @@
-const nonEmpty = e => !(e === undefined || e === null);
+const nonEmpty = x => !(x === undefined || x === null);
 
 export const nullable = (boolean) => {
-  if (boolean === false) {
-    return e => nonEmpty(e);
-  } else {
-    return () => true;
-  }
+  if (boolean === false) return x => nonEmpty(x);
+  else return () => true;
 };
 
 export const blank = (boolean) => {
-  if (boolean === false) {
-    return e => (
-      nonEmpty(e)  &&
-      typeof e.valueOf() == 'string' &&
-      e.length > 0
-    );
-  } else {
-    return e => (
-      nonEmpty(e)  &&
-      typeof e.valueOf() == 'string'
-    );
-  }
+  const isString = x => nonEmpty(x) && typeof x.valueOf() == 'string';
+  if (boolean === false) return x => isString(x) && x.length > 0;
+  else return x => isString(x);
 };
 
