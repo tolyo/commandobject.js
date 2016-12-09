@@ -11,3 +11,8 @@ export const blank = (boolean) => {
   else return x => isString(x);
 };
 
+export const inList = (array) => {
+  const msg = 'inList constraint requires Array parameter';
+  if (!nonEmpty(array) || array.constructor !== Array) throw new Error(msg);
+  else return x => array.indexOf(x) > -1;
+};
