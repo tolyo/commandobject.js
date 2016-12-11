@@ -12,7 +12,7 @@ export const blank = (boolean) => {
 };
 
 export const inList = (array) => {
-  const msg = 'inList constraint requires Array parameter';
+  const msg = 'inList constraint requires a non-empty Array parameter';
   if (!nonEmpty(array) || array.constructor !== Array) throw new Error(msg);
   else return x => array.indexOf(x) > -1;
 };
