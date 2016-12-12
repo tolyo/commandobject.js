@@ -34,10 +34,10 @@ export const minExclusive = (value) => {
   return x => x > value;
 };
 
-const rangeExp = /(?=\d+<?\.{2}<?\d+)/;
+const RANGE_REGEX = /(?=\d+<?\.{2}<?\d+)/;
 
 const isRangeLike = (value) => {
-  return value.match(rangeExp) !== null;
+  return value.match(RANGE_REGEX) !== null;
 };
 
 export const size = (range) => {
