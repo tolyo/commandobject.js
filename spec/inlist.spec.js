@@ -4,7 +4,7 @@ describe('inList constraint', () => {
   describe('unsuccessful validation', () => {
     it('should throw an Error', () => {
       [{}, "test", null, undefined].forEach( x =>
-        expect(() => inList(x)).toThrow(new Error('inList constraint requires Array parameter'))
+        expect(() => inList(x)).toThrow(new Error('inList constraint requires a non-empty Array parameter'))
       );
     });
 
