@@ -49,7 +49,7 @@ class Range {
   }
 }
 
-const pasrseRange = (value) => {
+const parseRange = (value) => {
   const rangeParams = value.match(RANGE_REGEX);
   const min = parseFloat(rangeParams[1]);
   const minExclusive = rangeParams[2];
@@ -65,6 +65,6 @@ export const size = (range) => {
   if (!isString(range)) throw new Error(msg1);
   const msg2 = 'size constraint requires parameter to conform to Groovy range';
   if (!isRangeLike(range)) throw new Error(msg2);
-  const parsedRange = pasrseRange(range);
+  const parsedRange = parseRange(range);
   return parsedRange;
 };
