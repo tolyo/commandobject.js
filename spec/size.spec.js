@@ -13,6 +13,12 @@ describe('size constaint', () => {
         expect(() => size(x)).toThrow(new Error('size constraint requires parameter to conform to Groovy range'))
       );
     });
+
+    it('should throw an value Error', () => {
+      ['7..6', '7..7', '99<..<6'].forEach( x =>
+        expect(() => size(x)).toThrow(new Error('size constraint requires min to be less than max'))
+      );
+    });
   });
 
 });
