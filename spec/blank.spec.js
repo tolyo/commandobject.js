@@ -1,36 +1,35 @@
 import { blank } from '../src/index';
+import test from 'tape';
 
-describe('blank constaint', () => {
-  describe('unsuccessful validation with blank set to false', () => {
+test('unsuccessful validation with blank set to false', (assert) => {
 
-    [, null, undefined, 1, {}, new Object(), "", new String("")].forEach(x =>
-      it('should be invalid', () => {
-        expect(blank(false)(x)).toBe(false);
-      })
-    );
-  });
+  [, null, undefined, 1, {}, new Object(), "", new String("")].forEach(x =>
+    assert.notOk(blank(false)(x), 'should be invalid')
+  );
 
-  describe('successful validation with blank set to false', () => {
-    it('should be valid', () => {
-      expect(blank(false)("test")).toBe(true);
-    });
-  });
-
-  describe('unsuccessful validation with blank set to true', () => {
-    [, null, undefined, 1].forEach(x =>
-      it('should be invalid', () => {
-        expect(blank(true)(x)).toBe(false);
-      })
-    );
-
-  });
-
-  describe('successful validation with blank set to true', () => {
-    ["", new String("")].forEach(x =>
-      it('should be valid', () => {
-        expect(blank(true)(x)).toBe(true);
-      })
-    );
-  });
-
+  assert.end();
 });
+
+  // describe('successful validation with blank set to false', () => {
+  //   it('should be valid', () => {
+  //     expect(blank(false)("test")).toBe(true);
+  //   });
+  // });
+	//
+  // describe('unsuccessful validation with blank set to true', () => {
+  //   [, null, undefined, 1].forEach(x =>
+  //     it('should be invalid', () => {
+  //       expect(blank(true)(x)).toBe(false);
+  //     })
+  //   );
+	//
+  // });
+	//
+  // describe('successful validation with blank set to true', () => {
+  //   ["", new String("")].forEach(x =>
+  //     it('should be valid', () => {
+  //       expect(blank(true)(x)).toBe(true);
+  //     })
+  //   );
+  // });
+

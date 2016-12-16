@@ -1,18 +1,16 @@
 import { size } from '../src/index';
+import test from 'tape';
 
-describe('size constaint', () => {
-  describe('unsuccessful validation with size set to invalid values', () => {
-    it('should throw an Error', () => {
-      [{}, 1, null, undefined, false, true].forEach( x =>
-        expect(() => size(x)).toThrow(new Error('size constraint requires String parameter'))
-      );
-    });
+test('size constrain validation with size set to invalid values', (assert) => {
 
-    it('should throw an Groovy range Error', () => {
-      ['asdf', '3313', '1<1'].forEach( x =>
-        expect(() => size(x)).toThrow(new Error('size constraint requires parameter to conform to Groovy range'))
-      );
-    });
-  });
+    [{}, 1, null, undefined, false, true].forEach( x =>
+      assert.throws(() => size(x), 'size constraint requires String parameter')
+    );
 
+    ['asdf', '3313', '1<1'].forEach( x =>
+      assert.throws(() => size(x), 'size constraint requires parameter to conform to Groovy range')
+    );
+
+    assert.end();
 });
+
