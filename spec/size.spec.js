@@ -1,7 +1,7 @@
 import { size } from '../src/index';
 import test from 'tape';
 
-test('size constrain validation with size set to invalid values', (assert) => {
+test('size constraint validation with size set to invalid values', (assert) => {
 
   [{}, 1, null, undefined, false, true].forEach( x =>
     assert.throws(() => size(x), 'size constraint requires String parameter')

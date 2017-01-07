@@ -1,35 +1,21 @@
 import { blank } from '../src/index';
 import test from 'tape';
 
-test('unsuccessful validation with blank set to false', (assert) => {
+test('blank constraint', (assert) => {
 
-  [, null, undefined, 1, {}, new Object(), "", new String("")].forEach(x =>
+  [, null, undefined, 1, {}, new Object(), '', new String('')].forEach(x =>
     assert.notOk(blank(false)(x), 'should be invalid')
+  );
+
+  ['test'].forEach(x =>
+    assert.equal(blank(false)(x), true, 'should be valid')
+  );
+
+  ['', new String('')].forEach(x =>
+    assert.equal(blank(true)(x), true, 'should be valid')
   );
 
   assert.end();
 });
 
-  // describe('successful validation with blank set to false', () => {
-  //   it('should be valid', () => {
-  //     expect(blank(false)("test")).toBe(true);
-  //   });
-  // });
-	//
-  // describe('unsuccessful validation with blank set to true', () => {
-  //   [, null, undefined, 1].forEach(x =>
-  //     it('should be invalid', () => {
-  //       expect(blank(true)(x)).toBe(false);
-  //     })
-  //   );
-	//
-  // });
-	//
-  // describe('successful validation with blank set to true', () => {
-  //   ["", new String("")].forEach(x =>
-  //     it('should be valid', () => {
-  //       expect(blank(true)(x)).toBe(true);
-  //     })
-  //   );
-  // });
 
