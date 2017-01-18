@@ -47,6 +47,20 @@ class Range {
     this.max = max;
     this.maxExclusive = maxExclusive;
   }
+
+  inRange(x) {
+    if (isString(x)) return this.inRangeString(x)
+  }
+
+  inRangeString(x) {
+    const length = x.length;
+    let min = false, max = false;
+    if (this.minExclusive) min = minExclusive(this.min)(length);
+    else min = minInclusive(this.min)(length);
+    if (this.maxExclusive) min = maxExclusive(this.max)(length);
+    else max = maxInclusive(this.max)(length);
+    return min && max;
+  }
 }
 
 const parseRange = (value) => {
@@ -57,7 +71,8 @@ const parseRange = (value) => {
   const max = parseFloat(rangeParams[5]);
   const msg1 = 'size constraint requires min to be less than max';
   if (max <= min) throw new Error(msg1);
-  return new Range(min, minExclusive, max, maxExclusive);
+  const range = new Range(min, minExclusive, max, maxExclusive);
+  return x => range.inRange(x);
 };
 
 export const size = (range) => {
@@ -65,6 +80,5 @@ export const size = (range) => {
   if (!isString(range)) throw new Error(msg1);
   const msg2 = 'size constraint requires parameter to conform to Groovy range';
   if (!isRangeLike(range)) throw new Error(msg2);
-  const parsedRange = parseRange(range);
-  return parsedRange;
+  return parseRange(range);
 };

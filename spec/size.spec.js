@@ -19,6 +19,14 @@ test('size constraint validation with size set to invalid values', (assert) => {
     assert.throws(() => size(x), 'size constraint requires parameter to conform to Groovy range')
   );
 
+  ["12345", '123456545654', '123451234512345'].forEach( x =>
+    assert.equal(size('5..15')(x), true)
+  );
+
+  ["", '12', '1234512345123445'].forEach( x =>
+    assert.equal(size('5..15')(x), false)
+  );
+
   assert.end();
 });
 
