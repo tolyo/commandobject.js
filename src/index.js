@@ -43,11 +43,13 @@ const isRangeLike = (value) => {
 };
 
 class Range {
-  constructor(min, minExclusive, max, maxExclusive) {
-    this.min = min;
-    this.minExclusive = minExclusive;
-    this.max = max;
-    this.maxExclusive = maxExclusive;
+  constructor(value) {
+    const rangeParams = value.match(RANGE_REGEX);
+    this.min = parseFloat(rangeParams[1]);
+    this.minExclusive = rangeParams[2];
+    this.max = parseFloat(rangeParams[5]);
+    this.maxExclusive = rangeParams[4];
+    if (this.max < this.min) throw new Error('size constraint requires min to be less than or equal to max');
   }
 
   inRange(x) {
@@ -77,22 +79,11 @@ class Range {
 
 }
 
-const parseRange = (value) => {
-  const rangeParams = value.match(RANGE_REGEX);
-  const min = parseFloat(rangeParams[1]);
-  const minExclusive = rangeParams[2];
-  const maxExclusive = rangeParams[4];
-  const max = parseFloat(rangeParams[5]);
-  const msg1 = 'size constraint requires min to be less than max';
-  if (max < min) throw new Error(msg1);
-  const range = new Range(min, minExclusive, max, maxExclusive);
-  return x => range.inRange(x);
-};
-
 export const size = (range) => {
   const msg1 = 'size constraint requires String parameter';
   if (!isString(range)) throw new Error(msg1);
   const msg2 = 'size constraint requires parameter to conform to Groovy range';
   if (!isRangeLike(range)) throw new Error(msg2);
-  return parseRange(range);
+  const rangeInstance = new Range(range);
+  return x => rangeInstance.inRange(x);
 };
