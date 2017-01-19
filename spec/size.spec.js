@@ -11,7 +11,7 @@ test('size constraint validation with size set to invalid values', (assert) => {
     assert.throws(() => size(x), 'size constraint requires parameter to conform to Groovy range')
   );
 
-  ['7..6', '7..7', '99<..<6'].forEach( x =>
+  ['7..6', '7..0', '99<..<6'].forEach( x =>
     assert.throws(() => size(x), 'size constraint requires min to be less than max')
   );
 
@@ -25,6 +25,22 @@ test('size constraint validation with size set to invalid values', (assert) => {
 
   ["", '12', '1234512345123445'].forEach( x =>
     assert.equal(size('5..15')(x), false)
+  );
+
+  [5, 10, 15].forEach( x =>
+    assert.equal(size('5..15')(x), true)
+  );
+
+  [1, 45, NaN].forEach( x =>
+    assert.equal(size('5..15')(x), false)
+  );
+
+  [[1,2,3], [1], [1,3]].forEach( x =>
+    assert.equal(size('1..3')(x), true)
+  );
+
+  [[], [1], [1,2,3, 1,2,3]].forEach( x =>
+    assert.equal(size('2..4')(x), false)
   );
 
   assert.end();

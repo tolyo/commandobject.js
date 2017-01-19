@@ -1,6 +1,8 @@
-const nonEmpty = x => !(x === undefined || x === null);
+const nonEmpty = x => !(x === undefined || x === null || x === NaN);
 
 const isString = x => nonEmpty(x) && typeof x.valueOf() === 'string';
+
+const isNumber = x => nonEmpty(x) && typeof x.valueOf() === 'number';
 
 export const nullable = (boolean) => {
   if (boolean === false) return x => nonEmpty(x);
@@ -49,11 +51,13 @@ class Range {
   }
 
   inRange(x) {
-    if (isString(x)) return this.inRangeString(x)
+    if (isString(x)) return this.inRangeLength(x.length);
+    else if (isNumber(x)) return this.inRangeNumber(x);
+    else if (x.constructor === Array) return this.inRangeLength(x.length);
+    else return false;
   }
 
-  inRangeString(x) {
-    const length = x.length;
+  inRangeLength(length) {
     let min = false, max = false;
     if (this.minExclusive) min = minExclusive(this.min)(length);
     else min = minInclusive(this.min)(length);
@@ -61,6 +65,16 @@ class Range {
     else max = maxInclusive(this.max)(length);
     return min && max;
   }
+
+  inRangeNumber(x) {
+    let min = false, max = false;
+    if (this.minExclusive) min = minExclusive(this.min)(x);
+    else min = minInclusive(this.min)(x);
+    if (this.maxExclusive) min = maxExclusive(this.max)(x);
+    else max = maxInclusive(this.max)(x);
+    return min && max;
+  }
+
 }
 
 const parseRange = (value) => {
@@ -70,7 +84,7 @@ const parseRange = (value) => {
   const maxExclusive = rangeParams[4];
   const max = parseFloat(rangeParams[5]);
   const msg1 = 'size constraint requires min to be less than max';
-  if (max <= min) throw new Error(msg1);
+  if (max < min) throw new Error(msg1);
   const range = new Range(min, minExclusive, max, maxExclusive);
   return x => range.inRange(x);
 };
