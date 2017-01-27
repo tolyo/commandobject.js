@@ -3,7 +3,7 @@ import test from 'tape';
 
 test('size constraint validation with size set to invalid values', (assert) => {
 
-  [{}, 1, null, undefined, false, true].forEach( x =>
+  [{}, 1, null, undefined, false, true, NaN].forEach( x =>
     assert.throws(() => size(x), 'size constraint requires String parameter')
   );
 

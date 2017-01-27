@@ -3,7 +3,7 @@ import test from 'tape';
 
 test('blank constraint', (assert) => {
 
-  [, null, undefined, 1, {}, new Object(), '', new String('')].forEach(x =>
+  [, null, undefined, 1, {}, new Object(), '', new String(''), NaN].forEach(x =>
     assert.notOk(blank(false)(x), 'should be invalid')
   );
 
