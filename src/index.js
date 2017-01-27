@@ -1,8 +1,8 @@
 const nonEmpty = x => !(x === undefined || x === null || x === NaN);
 
-const isString = x => nonEmpty(x) && typeof x.valueOf() === 'string';
+const isString = x => nonEmpty(x) && x.constructor === String;
 
-const isNumber = x => nonEmpty(x) && typeof x.valueOf() === 'number';
+const isNumber = x => nonEmpty(x) && x.constructor === Number;
 
 export const nullable = (boolean) => {
   if (boolean === false) return x => nonEmpty(x);
