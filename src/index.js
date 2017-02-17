@@ -1,3 +1,5 @@
+export { default as Validateable } from "./Validateable.js";
+
 const nonEmpty = x => !(x === undefined || x === null);
 
 const isString = x => nonEmpty(x) && x.constructor === String;
