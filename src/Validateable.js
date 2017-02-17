@@ -2,7 +2,7 @@ export default class Validateable {
 
 	constructor(){}
 
-  constraints(){
+	constraints(){
   	throw new Error("Constraints method must be implemented");
 	}
 
